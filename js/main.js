@@ -38,7 +38,7 @@ SLIDER_CONTAINER.addEventListener('touchend', (event) => {
     let xMovement = event.changedTouches[0].screenX
     let yMovement = event.changedTouches[0].screenY
 
-    if( yMovement - yStart > 0) {
+    if( yMovement - yStart == 0) {
         return
     }
 
