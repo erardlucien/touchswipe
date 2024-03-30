@@ -1,0 +1,74 @@
+/* ____________________ html _____________________________ */
+
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+
+/* _____________________ reset _____________________________ */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* _______________________ custom_property ______________________ */
+
+:root {
+    --slide-clr-1: rgb(120, 235, 12);
+    --slide-clr-2: rgb(235, 12, 120);
+    --slide-clr-3: rgb(12, 120, 235);
+    --margin: 1.2rem 2.3rem 1.6rem 0.9rem;
+    --slide-width: 25rem;
+    --slide-height: 15rem;
+    --transition: transform 200ms linear 4ms;
+}
+
+/* _____________________ container _____________________________ */
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* _________________________ slider_container ___________________ */
+
+.slider_container {
+    margin: var(--margin);
+    width: var(--slide-width);
+    height: var(--slide-height);
+    overflow-x: hidden;
+}
+
+/* __________________________ slider ____________________________ */
+
+.slider {
+    height: var(--slide-height);
+    width: calc(3*var(--slide-width));
+    display: flex;
+    transition: var(--transition);
+}
+
+/* _________________________ slide ______________________________ */
+
+.slide {
+    width: var(--slide-width);
+    height: var(--slide-height);
+}
+
+.slide:nth-child(1) {
+    background-color: var(--slide-clr-1);
+}
+
+.slide:nth-child(2) {
+    background-color: var(--slide-clr-2);
+}
+
+.slide:nth-child(3) {
+    background-color: var(--slide-clr-3);
+}
