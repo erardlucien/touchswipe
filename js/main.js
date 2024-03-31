@@ -29,10 +29,13 @@ function slidingLeft() {
     slide()
 
     if(isGoingAtBegin) {
+        counter = 0
+        SLIDER.style.transition = 'none'
+        slide()
         setTimeout(
             () => {
-                counter = 0
-                SLIDER.style.transition = 'none'
+                ++counter
+                resetTransitionSLider()
                 slide()
             },
         60 )
@@ -61,7 +64,7 @@ function slidingRight() {
 
 function goLeft() {
     ++counter
-    if( counter === 0 || counter === NUMBER_SLIDE ) {
+    if( counter === 0 || counter === NUMBER_SLIDE_NEW ) {
         isGoingAtBegin = true
     }
     slidingLeft()
@@ -69,7 +72,7 @@ function goLeft() {
 
 function goRight() {
     --counter
-    if( counter === -1 || counter === NUMBER_SLIDE ) {
+    if( counter === -1 || counter === NUMBER_SLIDE_NEW ) {
         isGoingAtEnd = true
     }
     slidingRight()
