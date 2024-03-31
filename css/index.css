@@ -39,6 +39,7 @@ html {
 /* _________________________ slider_container ___________________ */
 
 .slider_container {
+    --n: 0;
     margin: var(--margin);
     width: var(--slide-width);
     height: var(--slide-height);
@@ -49,7 +50,7 @@ html {
 
 .slider {
     height: var(--slide-height);
-    width: calc(3*var(--slide-width));
+    width: calc( var(--n) * var(--slide-width) );
     display: flex;
     transition: var(--transition);
 }
@@ -61,7 +62,7 @@ html {
     height: var(--slide-height);
 }
 
-.slide:nth-child(1) {
+.first {
     background-color: var(--slide-clr-1);
 }
 

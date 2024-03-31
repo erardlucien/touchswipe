@@ -4,27 +4,75 @@ const SLIDES = document.getElementsByClassName('slide')
 const NUMBER_SLIDE = SLIDES.length
 const SLIDER_CONTAINER = document.querySelector('.slider_container')
 const SLIDER = document.querySelector('.slider')
+const SLIDE1_COPY = SLIDES[0].cloneNode(true)
+SLIDER.appendChild(SLIDE1_COPY)
+const NUMBER_SLIDE_NEW = NUMBER_SLIDE + 1
+SLIDER_CONTAINER.style.setProperty('--n', `${NUMBER_SLIDE_NEW}`)
+const TRANSITION = 'var(--transition)'
 
 let xStart= 0
 let yStart = 0
 let counter = 0
+let isGoingAtEnd = false
+let isGoingAtBegin = false
 
-function goLeft() {
-    if(counter == NUMBER_SLIDE - 1) {
-        return
-    } else {
-        ++counter
-        SLIDER.style.transform = `translateX(-${( 100/NUMBER_SLIDE ) * counter}%)`
+function slide() {
+    SLIDER.style.transform = `translateX(-${( 100/NUMBER_SLIDE_NEW ) * counter}%)`
+}
+
+function resetTransitionSLider() {
+    SLIDER.style.transition =  TRANSITION
+}
+
+function slidingLeft() {
+    resetTransitionSLider()
+    slide()
+
+    if(isGoingAtBegin) {
+        setTimeout(
+            () => {
+                counter = 0
+                SLIDER.style.transition = 'none'
+                slide()
+            },
+        60 )
+        isGoingAtBegin = false
     }
 }
 
-function goRight() {
-    if(counter == 0) {
-        return
-    } else {
-        --counter
-        SLIDER.style.transform = `translateX(-${( 100/NUMBER_SLIDE ) * counter}%)`
+function slidingRight() {
+    resetTransitionSLider()
+    slide()
+
+    if(isGoingAtEnd) {
+        counter = NUMBER_SLIDE
+        SLIDER.style.transition = 'none'
+        slide()
+        setTimeout(
+            () => {
+                --counter
+                resetTransitionSLider()
+                slide()
+            },
+        60 )
+        isGoingAtEnd = false
     }
+}
+
+function goLeft() {
+    ++counter
+    if( counter === 0 || counter === NUMBER_SLIDE ) {
+        isGoingAtBegin = true
+    }
+    slidingLeft()
+}
+
+function goRight() {
+    --counter
+    if( counter === -1 || counter === NUMBER_SLIDE ) {
+        isGoingAtEnd = true
+    }
+    slidingRight()
 }
 
 SLIDER_CONTAINER.addEventListener('touchstart', (event) => {
@@ -38,7 +86,7 @@ SLIDER_CONTAINER.addEventListener('touchend', (event) => {
     let xMovement = event.changedTouches[0].screenX
     let yMovement = event.changedTouches[0].screenY
 
-    if( yMovement - yStart == 0) {
+    if( yMovement - yStart === 0) {
         return
     }
 
