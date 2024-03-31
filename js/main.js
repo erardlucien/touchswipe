@@ -38,7 +38,7 @@ function slidingLeft() {
                 resetTransitionSLider()
                 slide()
             },
-        6 )
+        60 )
         isGoingAtBegin = false
     }
 }
@@ -57,7 +57,7 @@ function slidingRight() {
                 resetTransitionSLider()
                 slide()
             },
-        6 )
+        60 )
         isGoingAtEnd = false
     }
 }
@@ -90,7 +90,7 @@ SLIDER_CONTAINER.addEventListener('touchend', (event) => {
     let yMovement = event.changedTouches[0].screenY
 
     // prevent a slide, when you scroll vertically
-    if( Math.abs(yMovement - yStart) / 10 > 1 ) {
+    if( Math.abs(yMovement - yStart) / 10 > 2 ) {
         return
     }
 
