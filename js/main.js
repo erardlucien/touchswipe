@@ -64,7 +64,7 @@ function slidingRight() {
 
 function goLeft() {
     ++counter
-    if( counter === 0 || counter === NUMBER_SLIDE_NEW ) {
+    if( counter === NUMBER_SLIDE_NEW ) {
         isGoingAtBegin = true
     }
     slidingLeft()
@@ -72,7 +72,7 @@ function goLeft() {
 
 function goRight() {
     --counter
-    if( counter === -1 || counter === NUMBER_SLIDE_NEW ) {
+    if( counter === -1  ) {
         isGoingAtEnd = true
     }
     slidingRight()
