@@ -89,7 +89,8 @@ SLIDER_CONTAINER.addEventListener('touchend', (event) => {
     let xMovement = event.changedTouches[0].screenX
     let yMovement = event.changedTouches[0].screenY
 
-    if( yMovement - yStart === 0) {
+    // prevent a slide, when you scroll vertically
+    if( Math.abs(yMovement - yStart) > 10 ) {
         return
     }
 
