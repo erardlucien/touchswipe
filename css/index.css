@@ -21,19 +21,53 @@ html {
     --slide-clr-1: rgb(120, 235, 12);
     --slide-clr-2: rgb(235, 12, 120);
     --slide-clr-3: rgb(12, 120, 235);
+    --slide-clr-4: rgb(244, 217, 14);
+    --slide-clr-5: rgb(12, 235, 235);
     --margin: 1.2rem 2.3rem 1.6rem 0.9rem;
     --slide-width: 25rem;
     --slide-height: 15rem;
     --transition: transform 200ms linear 4ms;
+    --indicator-width: 4rem;
+    --indicator-height: 0.9rem;
+    --full-indicator-clr: rgb(0, 12, 8);
+    --arrow-height: 4rem;
+    --arrow-width: 4rem;
 }
 
 /* _____________________ container _____________________________ */
 
 .container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+}
+
+/* _________________________ slider-and-arrow ___________________ */
+
+.slider-and-arrows {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* __________________________ arrow _____________________________ */
+
+.arrow {
+    display: block;
+    width: var(--arrow-height);
+    height: var(--arrow-height);
+    border-radius: calc(0.5 * var(--arrow-height));
+    font-size: calc(0.8 * var(--arrow-height));
+    color: white;
+    background-color: var(--slide-clr-2);
+    text-align: center;
+}
+
+.arrow:active {
+    background-color: white;
+    color: var(--slide-clr-2);
 }
 
 /* _________________________ slider_container ___________________ */
@@ -58,8 +92,13 @@ html {
 /* _________________________ slide ______________________________ */
 
 .slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: var(--slide-width);
     height: var(--slide-height);
+    font-size: calc(0.5 * var(--slide-height));
+    color: white;
 }
 
 .first {
@@ -72,4 +111,38 @@ html {
 
 .slide:nth-child(3) {
     background-color: var(--slide-clr-3);
+}
+
+.slide:nth-child(4) {
+    background-color: var(--slide-clr-4);
+}
+
+.slide:nth-child(5) {
+    background-color: var(--slide-clr-5);
+}
+
+/* ___________________ indicators ___________________ */
+
+.indicators-container {
+    display: flex;
+}
+
+
+/* ___________________ indicator ____________________ */
+
+.indicator {
+    display: block;
+    height: var(--indicator-height);
+    width: var(--indicator-width);
+    border: 0.1rem solid var(--full-indicator-clr);
+    margin: 0 1.2rem;
+    border-radius: calc(0.5 * var(--indicator-height));
+    transition: var(--transition);
+    transition-property: background;
+}
+
+/* ___________________ indicator-full ____________________ */
+
+.indicator-full {
+    background-color: var(--full-indicator-clr);
 }
