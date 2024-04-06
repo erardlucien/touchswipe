@@ -4,5 +4,5 @@
 
 https://erardlucien.github.io/touchswipe/
 
-The swipe work only on device with touchscreen.
-You can click the button or the indicators.
+You can swippe now with the help of buttons or
+indictors
