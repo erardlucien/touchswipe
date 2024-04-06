@@ -23,8 +23,8 @@ html {
     --slide-clr-3: rgb(12, 120, 235);
     --slide-clr-4: rgb(244, 217, 14);
     --slide-clr-5: rgb(12, 235, 235);
-    --margin: 1.2rem 2.3rem 1.6rem 0.9rem;
-    --slide-width: 25rem;
+    --margin: 5.2rem 0 0 0;
+    --slide-width: 100%;
     --slide-height: 15rem;
     --transition: transform 200ms linear 4ms;
     --indicator-width: 4rem;
@@ -32,6 +32,7 @@ html {
     --full-indicator-clr: rgb(0, 12, 8);
     --arrow-height: 4rem;
     --arrow-width: 4rem;
+    --arrow-distance: 2rem;
 }
 
 /* _____________________ container _____________________________ */
@@ -42,39 +43,66 @@ html {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    min-width: 100vw;
+}
+
+/* _____________________ carousel _____________________________ */
+
+.carousel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* _________________________ slider-and-arrow ___________________ */
 
 .slider-and-arrows {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    position: relative;
+    width: 100vw;
 }
 
 /* __________________________ arrow _____________________________ */
 
 .arrow {
     display: block;
-    width: var(--arrow-height);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: var(--arrow-width);
     height: var(--arrow-height);
     border-radius: calc(0.5 * var(--arrow-height));
-    font-size: calc(0.8 * var(--arrow-height));
-    color: white;
-    background-color: var(--slide-clr-2);
+    font-size: calc(0.9 * var(--arrow-height));
+    color: var(--full-indicator-clr);
+    border: 0.1rem solid var(--full-indicator-clr);
+    background-color: white;
     text-align: center;
+    cursor: pointer;
+    z-index: 99;
 }
 
 .arrow:active {
-    background-color: white;
-    color: var(--slide-clr-2);
+    background-color: var(--full-indicator-clr);
+    color: white;
+    font-weight: 700;
+    border: none;
+}
+
+/* __________________________ arrow-left _________________________ */
+
+.arrow-left {
+    left: var(--arrow-distance);
+}
+
+/* __________________________ arrow-right _________________________ */
+
+.arrow-right {
+    right: var(--arrow-distance);
 }
 
 /* _________________________ slider_container ___________________ */
 
 .slider_container {
     --n: 0;
-    margin: var(--margin);
     width: var(--slide-width);
     height: var(--slide-height);
     overflow-x: hidden;
@@ -125,6 +153,7 @@ html {
 
 .indicators-container {
     display: flex;
+    margin: var(--margin);
 }
 
 
@@ -132,17 +161,31 @@ html {
 
 .indicator {
     display: block;
+    position: relative;
     height: var(--indicator-height);
     width: var(--indicator-width);
     border: 0.1rem solid var(--full-indicator-clr);
     margin: 0 1.2rem;
     border-radius: calc(0.5 * var(--indicator-height));
+    cursor: pointer;
+    z-index: 0;
+}
+
+.indicator::before {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+    border-radius: calc(0.5 * var(--indicator-height));
+    background-color: var(--full-indicator-clr);
+    transform-origin: left;
+    transform: scaleX(0);
     transition: var(--transition);
-    transition-property: background;
+    z-index: -1;
 }
 
 /* ___________________ indicator-full ____________________ */
 
-.indicator-full {
-    background-color: var(--full-indicator-clr);
+.indicator-full::before {
+    transform: scaleX(1);
 }
