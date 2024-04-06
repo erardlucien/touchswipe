@@ -119,6 +119,7 @@ SLIDER_CONTAINER.addEventListener('touchend', (event) => {
 
     // prevent a slide, when you scroll vertically
     if( Math.abs(yMovement - yStart) / 10 > 5 ) {
+        timeout = setTimeout(activeLoop, 100)
         return
     }
 
