@@ -15,7 +15,6 @@ const INDICATORS = document.querySelectorAll('.indicator')
 const FULL_INDICATOR_CLASS = 'indicator-full'
 
 let xStart= 0
-let yStart = 0
 let counter = 0
 let isGoingAtEnd = false
 let isGoingAtBegin = false
@@ -109,16 +108,15 @@ SLIDER_CONTAINER.addEventListener('touchstart', (event) => {
     clearTimeout(timeout)
     event.preventDefault()
     xStart = event.changedTouches[0].screenX
-    yStart = event.changedTouches[0].screenY
 })
 
 SLIDER_CONTAINER.addEventListener('touchend', (event) => {
     event.preventDefault()
     let xMovement = event.changedTouches[0].screenX
-    let yMovement = event.changedTouches[0].screenY
 
-    // prevent a slide, when you scroll vertically
-    if( Math.abs(yMovement - yStart) / 10 > 4 ) {
+    // prevent a slide, when as long
+    // | xMovement - xStart | < 100
+    if( Math.abs(xMovement - xStart) < 100 ) {
         timeout = setTimeout(activeLoop, 100)
         return
     }
