@@ -114,7 +114,7 @@ SLIDER_CONTAINER.addEventListener('touchend', (event) => {
 
     // prevent a slide, as long
     // | xMovement - xStart | < 100
-    if( Math.abs(xMovement - xStart) < 50 ) {
+    if( Math.abs(xMovement - xStart) < 100 ) {
         timeout = setTimeout(activeLoop, 100)
         return
     }
