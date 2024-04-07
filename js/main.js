@@ -106,12 +106,10 @@ function loop () {
 SLIDER_CONTAINER.addEventListener('touchstart', (event) => {
     clearInterval(timeInterval)
     clearTimeout(timeout)
-    event.preventDefault()
     xStart = event.changedTouches[0].screenX
 })
 
 SLIDER_CONTAINER.addEventListener('touchend', (event) => {
-    event.preventDefault()
     let xMovement = event.changedTouches[0].screenX
 
     // prevent a slide, as long
