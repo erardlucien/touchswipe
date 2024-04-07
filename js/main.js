@@ -112,7 +112,7 @@ SLIDER_CONTAINER.addEventListener('touchstart', (event) => {
 SLIDER_CONTAINER.addEventListener('touchend', (event) => {
     let xMovement = event.changedTouches[0].screenX
 
-    // prevent a slide, as long
+    // prevent the swipe, as long
     // | xMovement - xStart | < 100
     if( Math.abs(xMovement - xStart) < 100 ) {
         timeout = setTimeout(activeLoop, 100)
