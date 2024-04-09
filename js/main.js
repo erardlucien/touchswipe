@@ -42,8 +42,6 @@ function resetTransitionSLider() {
 }
 
 function slidingLeft() {
-    resetTransitionSLider()
-    slide()
 
     if(isGoingAtBegin) {
         counter = 0
@@ -57,12 +55,14 @@ function slidingLeft() {
             },
         60 )
         isGoingAtBegin = false
+        return
     }
+
+    resetTransitionSLider()
+    slide()
 }
 
 function slidingRight() {
-    resetTransitionSLider()
-    slide()
 
     if(isGoingAtEnd) {
         counter = NUMBER_SLIDE
@@ -76,7 +76,27 @@ function slidingRight() {
             },
         60 )
         isGoingAtEnd = false
+        return
     }
+
+    resetTransitionSLider()
+    slide()
+}
+
+function resetAtBegin() {
+    ++counter
+
+    resetTransitionSLider()
+    slide()
+
+    setTimeout(
+        () => {
+            counter = 0
+            SLIDER.style.transition = 'none'
+            slide()
+        },
+    60 )
+    
 }
 
 function goLeft() {
@@ -92,7 +112,7 @@ function goLeft() {
 function goRight() {
     --counter
 
-    if( counter === -1  ) {
+    if( counter === -1 ) {
         isGoingAtEnd = true
     }
 
@@ -133,11 +153,12 @@ for(let i = 0; i < NUMBER_SLIDE; ++i) {
         clearInterval(timeInterval)
         clearTimeout(timeout)
         if( counter === NUMBER_SLIDE - 1 && i === 0 ) {
-            goLeft()
+            resetAtBegin()
         } else if( counter === 0 && i === NUMBER_SLIDE - 1 ) {
            goRight()
         } else {
             counter = i
+            resetTransitionSLider()
             slide()
         }
 
