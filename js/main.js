@@ -95,7 +95,7 @@ function resetAtBegin() {
             SLIDER.style.transition = 'none'
             slide()
         },
-    210 )
+    260 )
     
 }
 
