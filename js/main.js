@@ -53,7 +53,7 @@ function slidingLeft() {
                 resetTransitionSLider()
                 slide()
             },
-        60 )
+        210 )
         isGoingAtBegin = false
         return
     }
