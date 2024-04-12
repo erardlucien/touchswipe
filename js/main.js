@@ -83,20 +83,14 @@ function slidingRight() {
     slide()
 }
 
-function resetAtBegin() {
-    ++counter
+function goToFirstSlide() {
+    SLIDER.style.transitionDuration = '0ms';
+    SLIDER.style.transform = `translateX(0%)`;
+}
 
-    resetTransitionSLider()
-    slide()
-
-    setTimeout(
-        () => {
-            counter = 0
-            SLIDER.style.transition = 'none'
-            slide()
-        },
-    260 )
-    
+function goToLastSlide() {
+    SLIDER.style.transitionDuration = '0ms';
+    SLIDER.style.transform = `translateX(${ -NUMBER_SLIDE * ( 100 / NUMBER_SLIDE_NEW ) }%)`;
 }
 
 function goLeft() {
@@ -153,9 +147,17 @@ for(let i = 0; i < NUMBER_SLIDE; ++i) {
         clearInterval(timeInterval)
         clearTimeout(timeout)
         if( counter === NUMBER_SLIDE - 1 && i === 0 ) {
-            resetAtBegin()
-        } else if( counter === 0 && i === NUMBER_SLIDE - 1 ) {
-           goRight()
+            goLeft()
+        } else if( ( counter === 0 || counter === NUMBER_SLIDE) && i === NUMBER_SLIDE - 1 ) {
+            goToLastSlide()
+            setTimeout(goRight, 60)
+        } else if( counter === NUMBER_SLIDE ) {
+            goToFirstSlide()
+            setTimeout(() => {
+                counter = i
+                resetTransitionSLider()
+                slide()
+            }, 60)
         } else {
             counter = i
             resetTransitionSLider()
