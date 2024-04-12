@@ -16,8 +16,8 @@ const FULL_INDICATOR_CLASS = 'indicator-full'
 
 let xStart= 0
 let counter = 0
-let isGoingAtEnd = false
-let isGoingAtBegin = false
+let isMovingAtEnd = false
+let isMovingAtBegin = false
 let timeInterval = null
 let timeout = null
 
@@ -41,9 +41,9 @@ function resetTransitionSLider() {
     SLIDER.style.transition =  TRANSITION
 }
 
-function slidingLeft() {
+function movingLeft() {
 
-    if(isGoingAtBegin) {
+    if(isMovingAtBegin) {
         counter = 0
         SLIDER.style.transition = 'none'
         slide()
@@ -54,7 +54,7 @@ function slidingLeft() {
                 slide()
             },
         60 )
-        isGoingAtBegin = false
+        isMovingAtBegin = false
         return
     }
 
@@ -62,9 +62,9 @@ function slidingLeft() {
     slide()
 }
 
-function slidingRight() {
+function movingRight() {
 
-    if(isGoingAtEnd) {
+    if(isMovingAtEnd) {
         counter = NUMBER_SLIDE
         SLIDER.style.transition = 'none'
         slide()
@@ -75,7 +75,7 @@ function slidingRight() {
                 slide()
             },
         60 )
-        isGoingAtEnd = false
+        isMovingAtEnd = false
         return
     }
 
@@ -93,28 +93,28 @@ function goToLastSlide() {
     SLIDER.style.transform = `translateX(${ -NUMBER_SLIDE * ( 100 / NUMBER_SLIDE_NEW ) }%)`;
 }
 
-function goLeft() {
+function swipeLeft() {
     ++counter
 
     if( counter === NUMBER_SLIDE_NEW ) {
-        isGoingAtBegin = true
+        isMovingAtBegin = true
     }
 
-    slidingLeft()
+    movingLeft()
 }
 
-function goRight() {
+function swipeRight() {
     --counter
 
     if( counter === -1 ) {
-        isGoingAtEnd = true
+        isMovingAtEnd = true
     }
 
-    slidingRight()
+    movingRight()
 }
 
 function loop () {
-    goLeft()
+    swipeLeft()
 }
 
 SLIDER_CONTAINER.addEventListener('touchstart', (event) => {
@@ -134,9 +134,9 @@ SLIDER_CONTAINER.addEventListener('touchend', (event) => {
     }
 
     if(xStart - xMovement < 0) {
-        goRight()
+        swipeRight()
     } else if(xStart - xMovement > 0) {
-        goLeft()
+        swipeLeft()
     }
 
     timeout = setTimeout(activeLoop, 100)
@@ -147,10 +147,10 @@ for(let i = 0; i < NUMBER_SLIDE; ++i) {
         clearInterval(timeInterval)
         clearTimeout(timeout)
         if( counter === NUMBER_SLIDE - 1 && i === 0 ) {
-            goLeft()
+            swipeLeft()
         } else if( ( counter === 0 || counter === NUMBER_SLIDE) && i === NUMBER_SLIDE - 1 ) {
             goToLastSlide()
-            setTimeout(goRight, 60)
+            setTimeout(swipeRight, 60)
         } else if( counter === NUMBER_SLIDE ) {
             goToFirstSlide()
             setTimeout(() => {
@@ -171,14 +171,14 @@ for(let i = 0; i < NUMBER_SLIDE; ++i) {
 ARROW_LEFT.addEventListener('click', () => {
     clearInterval(timeInterval)
     clearTimeout(timeout)
-    goRight()
+    swipeRight()
     timeout = setTimeout(activeLoop, 700)
 })
 
 ARROW_RIGHT.addEventListener('click', () => {
     clearInterval(timeInterval)
     clearTimeout(timeout)
-    goLeft()
+    swipeLeft()
     timeout = setTimeout(activeLoop, 700)
 })
 
